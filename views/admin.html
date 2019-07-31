@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v3.8.5">
+    <title>Admin</title>
+
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <style>
+
+        .registration_body {
+            color:gray;
+        }
+
+        .form-row {
+            margin-top: 20px;
+        }
+
+        .car_kind {
+            margin-top: 7px;
+            width: 30px;
+        }
+ 
+        .car_tag {
+            font-size: 10px;
+        }
+
+    </style>
+<script>
+
+    // function sendData(){
+
+    //     var formData = new formData(document.getElementById('#registration'));
+
+    //     $.ajax({ 
+    //         type: 'POST',
+    //         url: '/registration',
+    //         dataType: 'json',
+    //         success: function(data) {
+    //             car_list = JSON.parse(data);
+
+             
+    //         },
+    //         error: function(err) {
+    //             alert('error')
+    //         }
+    //     });       
+    // };
+
+
+    // };
+</script>
+</head>
+
+<body>
+
+        <% include ./nav.html %>
+
+    <div class="container-fluid justify-content-center mt-5 mb-5">
+        <div class="row mb-3" style="text-align: center;">
+            <div class="col-2"> 
+            </div>
+            <div class="col-4" >
+                <h3> 차량 등록 </h3>
+            </div>
+            <div class="col-4">
+               <a href="/carlist"><button class="btn btn-outline-danger mt-3" style="font-size: 12px; width: 70%; margin-left: -80px;"> 전체 차량 확인 </button></a>    
+            </div>
+            <div class="col-2"> 
+            </div>
+        </div>
+
+        <% if(locals.err) {%>
+            <p><%= err %></p>
+            <% }%>
+
+        <div class="container justify-content-center registration_body" style="border: 2px solid gray; padding: 50px; width: 450px;">
+            <form action='/registration' method="POST" >
+                <div class=" form-row form-group">
+                    <label> 차 종류 </label>
+                    <div class="form-control">
+                        <input type="radio" name='kind' class="car_kind" value='국산차'>국산차
+                        <input type="radio" name='kind' class="car_kind" value='수입차'>수입차
+                    </div>    
+                </div>
+
+                <div class=" form-row form-group">
+                    <label> 제조사 </label>
+                    <input type="text" name='company' class="form-control">
+                </div>
+
+                <div class=" form-row form-group">
+                    <label> 모델 </label>
+                    <input type="text" name='model' class="form-control">
+                </div>
+
+                <div class=" form-row form-group">
+                    <label> 세부모델 </label>
+                    <input type="text" name='detail_model' class="form-control">
+                </div>
+
+                <div class=" form-row form-group">
+                    <label> Tag </label>
+                    <div class="form-control" style="height: 130px;">
+                        <input type="radio" name='tag' class="car_tag mt-3" value='SK엔카 진단차량'>  SK엔카 진단차량<br>
+                        <input type="radio" name='tag' class="car_tag" value='SK엔카 보증차량'>  SK엔카 보증차량<br>
+                        <input type="radio" name='tag' class="car_tag" value='헛걸음 보상차량'>  헛걸음 보상차량<br>
+                        <input type="radio" name='tag' class="car_tag" value='브랜드 인증차량'>  브랜드 인증차량<br>
+                    </div>    
+                </div>
+    
+                <!-- <div class=" form-row form-group">
+                    <label> 차량이미지 </label>
+                    <input type="file" name='car_image' class="form-control" style="font-size: 10px; height: 40px;">
+                </div> -->
+                <button type="submit" class="btn btn-danger mt-5" style="width: 100%;">등록</button>
+            </form>
+        </div>
+    </div>
+
+    <% include ./inc/footer.ejs %>
+
+</body>
+</html>

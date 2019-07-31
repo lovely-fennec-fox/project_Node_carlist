@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <% include ./inc/header.ejs %>
+    <title></title>
+
+    <style>
+
+        .navigation {
+            width: 100%;
+            margin-bottom: 80px;
+        }
+
+        .nav {
+            line-height: 100%;
+        }
+
+        .navigation a {
+            text-decoration: none;
+            color: white;
+        }
+
+        .navigation a:hover {
+            text-decoration: none;
+            color: white;
+            font-size: 20px;
+        }
+
+        .nav_menu li {
+            background-color: #d50527;
+            border: none;
+            color: white;
+            font-size: 15px;
+            margin-top: 20px;
+        }
+
+        .login {
+            margin-top: 20px;
+            width: 100%;
+        }
+
+
+</style>
+<script>
+
+</script>
+</head>
+<body>
+
+<% var check_root = 'Sign'; %>
+<% var check_root_address = '/sign'; %>
+
+
+<% if(user) { %>
+    <% check_login = 'Logout'; %>
+    <% check_address = '/logout'; %>
+
+    <% if (user.email == 'root@root.com'){ %>
+        <% check_root = 'Admin'; %>
+        <% check_root_address = '/admin'; %>
+    
+    <%} else { %>
+        <% check_root = user.name + '님' ; %>
+        <% check_root_address = '/user/profile'; %>
+        <% };%>
+
+<%} else { %>
+    <% var check_login = 'Login'; %>
+    <% var check_address = '/login'; %>
+    <% };%>
+
+
+
+
+<div class="container-fluid navigation">
+    <div class="row nav" style="background-color:#d50527;">
+        <div class="col-2">
+           <a href="/main"><img src="images/img01.png"></a>
+        </div>
+        <div class="col-8 nav_menu" style="margin-right:-60px;">
+            <ul class="list-group list-group-horizontal-sm">
+                <li class="list-group-item"><a href="http://70.12.50.185:3030/car01"> 국산차 </a></li>
+                <li class="list-group-item"><a href="http://70.12.50.185:3030/car02"> 수입차 </a> </li>
+            </ul>
+        </div>
+        <div class="col" style="margin-top: 3px;">
+            <div class="row justify-content-end">
+                <div class="col-6">
+                    <a href=<%= check_address %>><button type="button" class="btn btn-outline-light login"
+                        style="width: 100%; font-size:12px;margin-left: 20px;"><%= check_login %></button></a>
+                </div>
+                <div class="col-6">
+                    <a href=<%= check_root_address %>><button type="button" class="btn btn-outline-light login" style="width: 100%; font-size:12px; ">
+                        <%= check_root %> </button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>

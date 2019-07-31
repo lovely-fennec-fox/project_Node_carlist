@@ -1,0 +1,79 @@
+[
+        {
+                "kind": "국산차",
+                "company": "현대",
+                "model": "그랜저",
+                "detail_model": "그랜저 IG 하이브리드",
+                "tag": "SK엔카 진단차량"
+        },
+        {
+                "kind": "국산차",
+                "company": "기아",
+                "model": "모닝",
+                "detail_model": "올 뉴 모닝",
+                "tag": "브랜드 인증차량"
+        },
+        {
+                "kind": "국산차",
+                "company": "기아",
+                "model": "레이",
+                "detail_model": "더 뉴 레이",
+                "tag": "SK엔카 보증차량"
+        },
+        {
+                "kind": "수입차",
+                "company": "벤츠",
+                "model": "E-클라스",
+                "detail_model": "E-클라스 W213",
+                "tag": "브랜드 인증차량"
+        },
+        {
+                "kind": "수입차",
+                "company": "벤츠",
+                "model": "E-클라스",
+                "detail_model": "E-클라스 W212",
+                "tag": "SK엔카 보증차량"
+        },
+        {
+                "kind": "수입차",
+                "company": "벤츠",
+                "model": "E-클라스",
+                "detail_model": "E-클라스 W211",
+                "tag": "브랜드 인증차량"
+        },
+        {
+                "kind": "수입차",
+                "company": "벤츠",
+                "model": "E-클라스",
+                "detail_model": "E-클라스 W210",
+                "tag": "브랜드 인증차량"
+        },
+        {
+                "kind": "수입차",
+                "company": "람보르기니",
+                "model": "디아블로",
+                "detail_model": "디아블로",
+                "tag": "헛걸음 보상차량"
+        },
+        {
+                "kind": "수입차",
+                "company": "볼보",
+                "model": "S60",
+                "detail_model": "S60 크로스컨트리",
+                "tag": "헛걸음 보상차량"
+        },
+        {
+                "kind": "수입차",
+                "company": "폭스바겐",
+                "model": "골프",
+                "detail_model": "골프 7세대",
+                "tag": "브랜드 인증차량"
+        },
+        {
+                "kind": "국산차",
+                "company": "a",
+                "model": "a",
+                "detail_model": "a",
+                "tag": "헛걸음 보상차량"
+        }
+]

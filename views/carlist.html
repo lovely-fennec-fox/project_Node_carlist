@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+   <title>Carlist</title>
+
+   <% include ./inc/header.ejs %>
+
+<style>
+    .carlist_body {
+        font-size: 13px;
+        text-align: center;
+    }
+
+</style>
+<script>
+
+    var car_list = [];
+    var CarData = ''
+
+    $.ajax({ 
+            type: 'POST',
+            url: '/api/car_list',
+            dataType: 'json',
+            success: function(data) {
+                car_list = JSON.parse(data);
+                show_list(car_list)
+            },
+            error: function(err) {
+                alert('error')
+            }
+        });       
+
+
+    function show_list(Data){
+
+    for( var num in Data){
+        CarData += `<tr>
+                        <th scope="row"><input type="checkbox" name="`+ num + `"></th>
+                        <td>`+ Data[num].kind +`</td>
+                        <td>`+ Data[num].company +`</td>
+                        <td>`+ Data[num].model +`</td>
+                        <td>`+ Data[num].detail_model +`</td>
+                        <td>`+ Data[num].tag +`</td>
+                    </tr>`
+    };
+
+    document.querySelector('#tb').innerHTML = CarData;
+    }
+
+
+
+
+
+</script>
+</head>
+<body>
+
+  <% include ./nav.html %>
+  
+  <div class="container-fluid carlist_body mb-5">
+    <div class="container mb-5">
+        <form method="POST" action="/delete_data">
+            <div class="row mb-4">
+                <div class="col-6">    
+                </div>
+                <div class="col-3" >
+                    <button class="btn btn-outline-danger" type="submit" style="width: 100%;"> 차량 삭제 </button>
+                </div>
+                <div class="col-3">
+                    <a href="/admin"><input type="button" class="btn btn-outline-danger" style="width: 100%;" value="차량 추가"> </a>
+                </div>
+            </div>
+            <p style="text-align:end; color: gray; "> 삭제할 차량을 선택한 후 차량삭제를 클릭하세요</p>
+            <table class="table">
+                <thead class="thead-light">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Kind</th>
+                    <th scope="col">Company</th>
+                    <th scope="col">Model</th>
+                    <th scope="col">DetailModel</th>
+                    <th scope="col">Tag</th>
+                </tr>
+                </thead>
+                <tbody id='tb'>
+        
+                </tbody>
+            </table>
+        </form>  
+    </div>
+  </div>
+
+  <% include ./inc/footer.ejs %>  
+
+</body>
+</html>

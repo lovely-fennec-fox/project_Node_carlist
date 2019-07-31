@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <% include ./inc/header.ejs %>
+    <title>Main</title>
+
+<style>
+    .main_body {
+        width: 100%;
+    }
+
+    .main_body {
+        margin-bottom: 80px;
+    }
+
+    .main_body .search {
+        border: 3px solid black;
+    }
+
+    .main_body .menu {
+        font-size: 13px;
+        width: 100%;
+    }
+
+    .main_body .menu button {
+        font-size: 13px;
+        width: 100%;
+    }
+
+    .main_body .btn-group-top {
+        width: 80%;
+    }
+
+    .btn-group-top .btn-group {
+        width: 40%;
+    }
+
+    .btn-group-top .search_btn {
+        width: 100px;
+    }
+
+    .btn-group-top button {
+        background-color: white;
+        border: none;
+        color: gray;
+        font-size: 13px;
+        border-bottom: 2px solid #d50527;
+    }
+
+    .btn-group-top button:hover {
+        background-color: #d50527;
+        border: none;
+        color: white;
+        font-size: 13px;
+    }
+
+    .dropdown-item {
+        font-size: 12px;
+    }
+
+
+    .select_car div {
+        margin-top: 20px;
+        font-size: 15px;
+        color: gray;
+    }
+    
+</style>
+<script type="text/javascript">
+
+    var car_list = [];
+    var check = 0
+    var domestic_car = []; 
+    var foreign_car = [];
+    var car_companys = [];
+    var company_list = [];
+    var car_models = [];
+    var model_list = [];
+    var car_detail_models = [];
+    var detail_model_list = [];
+
+
+    function SelectKind(num){
+        
+        if(num == 1){
+            check = 1;
+            document.querySelector('#Btn_1').setAttribute('class','btn btn-outline-danger active')
+            document.querySelector('#Btn_2').setAttribute('class','btn btn-outline-danger')
+            document.querySelector('#Btn_3').setAttribute('class','btn btn-outline-danger')
+        }else if(num == 2){
+            check = 2;
+            document.querySelector('#Btn_2').setAttribute('class','btn btn-outline-danger active')
+            document.querySelector('#Btn_1').setAttribute('class','btn btn-outline-danger')
+            document.querySelector('#Btn_3').setAttribute('class','btn btn-outline-danger')
+        }else{
+            check = 3;
+            document.querySelector('#Btn_3').setAttribute('class','btn btn-outline-danger active')
+            document.querySelector('#Btn_1').setAttribute('class','btn btn-outline-danger')
+            document.querySelector('#Btn_2').setAttribute('class','btn btn-outline-danger')
+        };
+    };
+
+    function Company(){ 
+
+        $.ajax({ 
+            type: 'POST',
+            url: '/api/car_list',
+            dataType: 'json',
+            success: function(data) {
+                car_list = JSON.parse(data);
+
+                if(check == 1){
+                    for(num in car_list){
+                        if(car_list[num].kind == '국산차')
+                            domestic_car.push(car_list[num])
+                            SelectCompany(domestic_car);
+                    };
+                }else if(check == 2){
+                    for(num in car_list){
+                        if(car_list[num].kind == '수입차')
+                            foreign_car.push(car_list[num])
+                            SelectCompany(foreign_car);
+                    };
+                }else{
+                    SelectCompany(car_list);
+                };
+            },
+            error: function(err) {
+                alert('error')
+            }
+        });       
+    };
+
+
+    function SelectCompany(carlist){
+ 
+        car_companys = [];
+
+        for( num in carlist ) {
+            car_companys.push(carlist[num].company)
+            };
+
+        company_list = car_companys.filter( (item, idx, array) => {
+            return array.indexOf( item ) === idx ;
+            });
+
+        $('a.select_company').remove();
+
+        for (var i in company_list) {
+            var a = document.createElement('a');
+            a.className = 'dropdown-item select_company';
+            a.innerHTML = company_list[i]
+            a.setAttribute("onclick","SelectModel(this.innerHTML);");
+            document.querySelector('#company_list').append(a);
+        };
+    }
+
+
+    function SelectModel(company){
+
+        var Company = company
+        document.querySelector('#Com').innerHTML = Company;
+
+        model_list = [];
+        car_models = [];
+
+        for ( num in car_list){
+            if(company == car_list[num].company){
+                car_models.push(car_list[num].model)
+            };
+
+        model_list = car_models.filter( (item, idx, array) => {
+            return array.indexOf( item ) === idx ;
+            });
+        };
+    }
+
+    function Model(){
+        
+        $('a.select_model').remove();
+
+        for (var i in model_list) {
+            var a = document.createElement('a');
+            a.className = 'dropdown-item select_model';
+            a.innerHTML = model_list[i]
+            a.setAttribute("onclick","SelectDetailModel(this.innerHTML);");
+            document.querySelector('#model_list').append(a);
+        };
+    }
+
+    function SelectDetailModel(model){
+
+        var Model = model
+        document.querySelector('#MO').innerHTML = Model;
+
+        car_detail_models = [];
+        detail_model_list = [];
+
+        for ( num in car_list){
+            if(model == car_list[num].model){
+                car_detail_models.push(car_list[num].detail_model)
+            };
+
+        detail_model_list = car_detail_models.filter( (item, idx, array) => {
+            return array.indexOf( item ) === idx ;
+            });
+        };
+    }
+
+    
+    function DetailModel(){
+        
+        $('a.select_detail_model').remove();
+
+        for (var i in detail_model_list) {
+            var a = document.createElement('a');
+            a.className = 'dropdown-item select_detail_model';
+            a.innerHTML = detail_model_list[i]
+            a.setAttribute("onclick","");
+            document.querySelector('#detail_model_list').append(a);
+        };
+    }
+
+
+
+</script>
+</head>
+
+<body>
+
+    <% include ./nav.html %>
+
+    <div class="container-fluid main_body">
+        <div class="container mt-5" style=" width: 100%;">
+
+            <div class="row search">
+                <div class="col mt-4 ml-4">
+                    <div class="row">
+                        <p class="h4"> SK엔카에서 내 차 찾기</p>
+                    </div>
+                    <!--./row-->
+                    <div class="row ">
+                        <div class="row menu" style=" width: 100%;">
+                            <div class="col-3 mt-4">
+                                <button id='Btn_1' type="button" class="btn btn-outline-danger" onclick="SelectKind(1)">국산차</button>
+                            </div>
+                            <div class="col-3 mt-4" style="margin-left: -20px;">
+                                <button id='Btn_2' type="button" class="btn btn-outline-danger" onclick="SelectKind(2)"> 수입차 </button>
+                            </div>
+                            <div class="col-3 mt-4" style="margin-left: -20px;">
+                                <button id='Btn_3' type="button" class="btn btn-outline-danger" onclick="SelectKind(3)"> 전체 </button>
+                            </div>
+                            <div class="col-3 justify-content-end" style="margin-left:2px;">
+                                <div class="row justify-content-end">
+                                    <p class="text-muted"></p>
+                                </div>
+                                <div class="row justify-content-end">
+                                    <p class="text-muted"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <!--./row-->
+                        <div class="row car_list justify-content-center mt-4" style="width: 100%;">
+                            <div class="btn-group btn-group-top" role="group"
+                                aria-label="Button group with nested dropdown">
+                                <div class="btn-group" role="group">
+                                    <button id="btnGroupDrop1" onclick="Company();" type="button" class="btn btn-danger dropdown-toggle"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        제조사
+                                    </button>
+                                    <div id='company_list' class="dropdown-menu" aria-labelledby="btnGroupDrop1">   
+
+                                    </div>
+                                </div>
+                                <div class="btn-group" role="group">
+                                    <button id="btnGroupDrop2" onclick="Model();" type="button" class="btn btn-danger dropdown-toggle"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        모델
+                                    </button>
+                                    <div id='model_list' class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+
+                                    </div>
+                                </div>
+                                <div class="btn-group" role="group">
+                                    <button id="btnGroupDrop3"  onclick='DetailModel();' type="button" class="btn btn-danger dropdown-toggle"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        세부모델
+                                    </button>
+                                    <div id='detail_model_list' class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+
+                                    </div>
+                                </div>
+                                <button type="button" class="btn btn-danger search_btn"> 검색 </button>
+                            </div>
+                        </div>
+                        <!--./row-->
+                        <div class="row select_car" style="margin-left:110px; text-align: center;">
+                            <div id='Com' class='col-2' style='margin-left:20px;'></div>
+                            <div id='MO' class='col-2' style=" width: 200px; margin-left:120px;"></div>
+                            <div id='De' class='col-8' style=" width: 200px;"></div>
+                        </div>
+                        <div class="row mt-5 ml-3 mb-4" style="width: 100%;">
+                            <div class="col-4" style="font-size: 10px;">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item h6"> 추천매물 </li>
+                                    <li class="list-group-item"> SK엔카 진단차량 </li>
+                                    <li class="list-group-item"> SK엔카 보증차량 </li>
+                                    <li class="list-group-item"> 헛걸음 보상차량 </li>
+                                    <li class="list-group-item"> 브랜드 인증차량 </li>
+                                </ul>
+                            </div>
+                            <div class="col-6 mt-5">
+                                <img src="images/img02.png" width="120%;" alt="image">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--./row-->
+            </div>
+            <!--./row-->
+            <div class="row mt-5" style="border: 2px solid darkgray;">
+                <div class="col ml-4">
+                    <div class="row mt-4">
+                        <p class="h4"> 엔카의 자동차 리뷰, 이 차 어때? </p>
+                    </div>
+                    <div class="row mt-4">
+                        <div id="carouselExampleInterval" class="carousel slide" data-ride="carousel">
+                            <div class="carousel-inner">
+                                <div class="carousel-item active" data-interval="10000">
+                                    <img src="images/img03.png" class="d-block w-100" alt="...">
+                                </div>
+                                <div class="carousel-item" data-interval="2000">
+                                    <img src="images/img04.png" class="d-block w-100" alt="...">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="images/img05.png" class="d-block w-100" alt="...">
+                                </div>
+                            </div>
+                            <a class="carousel-control-prev" href="#carouselExampleInterval" role="button"
+                                data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" href="#carouselExampleInterval" role="button"
+                                data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--./container-->
+    </div>
+    <!--./container-fluid-->
+
+
+    <% include ./inc/footer.ejs %>
+
+</body>
+
+</html>

@@ -1,0 +1,20 @@
+{
+        "root@root.com": {
+                "password": "qIjpmbmAk0PM6jsNup9RYxZ4L06nHXHIETPbtD+yI5CRT3p87/xihAHhCf26ix/5wvXMcdhB58n+eU7MRk7z0pE0Ks9Vvw8eXNoS14bLvqoc4s4KXL8IBV6cKjHC8uOZQpe1DhWSFlZ+vcvEHn8I1CuUxspGvkv6EiAY4qycDYY=",
+                "salt": "QRR8U3GsPSCqKRSZ3SBhrxWPFTJ5kbrtbjFLwpB9T2TzZwOriitIiO7Y4UMLk04oev4gZ6QnXFg8eDhrmSw1FA==",
+                "name": "root",
+                "email": "root@root.com"
+        },
+        "admin@admin.com": {
+                "password": "gllbQhm31vmwa4gCPVNiram6/sHN1TJkGKh6uCRARppIPqGt+Rc5kvJB7yTJsQBJmcLMj3QZV3ElXLMwBrovBZ/P110WdAS19v7MDXDGWS8yWxTnBDRHkdUP0TmTEPB0lZStpzF/qJhraILz/pqbgSAHJDP7blTtZXk/JPoTC9Q=",
+                "salt": "zXak5yV+CXsvPgsg/DnavC+CN1qzLP7YGgyD/j72H+cLi1C6nhVdaWtETvfYwCX4hxHj2gpLgtNi/4wUE20SfA==",
+                "name": "admin",
+                "email": "admin@admin.com"
+        },
+        "admin2@admin.com": {
+                "password": "yoN1MoIleFH+RaP/UBQWwzC6sNiYSK0MG8K/ift8FQCktszX35E/3xBoVLkoH25fpVbyunzfblwdKNDK4jIbiVG3hdkEXZtTpDSlJG6hUo5j51vlVySX9iVdhsbUmVfsHTsxgi9MTGbzg/rDbnA4OgIpJ6rT9dcyRTm5jgaQbHs=",
+                "salt": "0Bi5YhIj9aWg5OiOh50gG0/vJStftoHzDk+ewF0slvoH4HkNDPJQMezgGdHSnJALiQ2eR4OS8gDueyAxFxI0jQ==",
+                "name": "admin2",
+                "email": "admin2@admin.com"
+        }
+}
