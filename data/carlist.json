@@ -61,19 +61,5 @@
                 "model": "S60",
                 "detail_model": "S60 크로스컨트리",
                 "tag": "헛걸음 보상차량"
-        },
-        {
-                "kind": "수입차",
-                "company": "폭스바겐",
-                "model": "골프",
-                "detail_model": "골프 7세대",
-                "tag": "브랜드 인증차량"
-        },
-        {
-                "kind": "국산차",
-                "company": "a",
-                "model": "a",
-                "detail_model": "a",
-                "tag": "헛걸음 보상차량"
         }
 ]
